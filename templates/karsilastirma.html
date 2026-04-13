@@ -55,7 +55,13 @@
             </form>
         </div>
         {% if analysis_1 and analysis_2 %}
-        <div id="comparison-results-card" data-file1-name="{{ analysis_1.unique_filename }}" data-file1-label="{{ analysis_1.display_name }}" data-file2-name="{{ analysis_2.unique_filename }}" data-file2-label="{{ analysis_2.display_name }}">
+        <div id="comparison-results-card" 
+             data-file1-name="{{ analysis_1.unique_filename }}" 
+             data-file1-label="{{ analysis_1.display_name }}" 
+             data-file1-res="{{ analysis_1.sonuc }}"
+             data-file2-name="{{ analysis_2.unique_filename }}" 
+             data-file2-label="{{ analysis_2.display_name }}"
+             data-file2-res="{{ analysis_2.sonuc }}">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div class="chart-container"><h2 class="text-2xl font-semibold text-center text-blue-400 mb-4">Zaman Domeni Karşılaştırması</h2><canvas id="comparisonTimeDomainChart"></canvas></div>
                 <div class="chart-container"><h2 class="text-2xl font-semibold text-center text-blue-400 mb-4">PSD Karşılaştırması</h2><canvas id="comparisonPsdChart"></canvas></div>
@@ -88,8 +94,10 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!resultsContainer) { return; }
     const file1 = resultsContainer.dataset.file1Name;
     const label1 = resultsContainer.dataset.file1Label;
+    const res1 = resultsContainer.dataset.file1Res;
     const file2 = resultsContainer.dataset.file2Name;
     const label2 = resultsContainer.dataset.file2Label;
+    const res2 = resultsContainer.dataset.file2Res;
     Chart.defaults.color = '#e2e8f0';
     const fetchData = async (filename) => { const response = await fetch(`/api/analyze_file_data/${filename}`); if (!response.ok) throw new Error(`Dosya verisi alınamadı: ${filename}`); return await response.json(); };
     const renderChart = (ctx, type, labels, datasets, xTitle = '', yTitle = '') => { return new Chart(ctx, { type, data: { labels, datasets }, options: { responsive: true, maintainAspectRatio: false, animation: { duration: 500 }, scales: { x: { title: { display: !!xTitle, text: xTitle }, ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255, 255, 255, 0.1)' } }, y: { title: { display: !!yTitle, text: yTitle }, ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255, 255, 255, 0.1)' } } } } }); };
@@ -168,13 +176,12 @@ document.addEventListener('DOMContentLoaded', function() {
 <div class="badges-row">
   <div class="badge-card ref">
     <p class="small">1. Analiz (Referans)</p>
-    <p class="name">${label1}</p>
-    <p class="code">{{ analysis_1.sonuc }}</p>
+    <p class="code">${res1}</p>
   </div>
   <div class="badge-card">
     <p class="small">2. Analiz</p>
     <p class="name">${label2}</p>
-    <p class="code">{{ analysis_2.sonuc }}</p>
+    <p class="code">${res2}</p>
   </div>
 </div>
 <div class="charts-row">
