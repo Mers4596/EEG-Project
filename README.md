@@ -1,8 +1,8 @@
 <div align="center">
   
-# 🧠 Asgard: EEG Sinyal Analizi ve Yorumlama Sistemi
+# 🧠 EEG Analiz ve Yönetim Sistemi
 
-Asgard, derin öğrenme algoritmaları kullanarak ham **EEG (Elektroensefalografi)** sinyallerini analiz eden, görselleştiren ve tıbbi/akademik yorumlamalar sunan yenilikçi, profesyonel bir web platformudur.
+Bu proje, derin öğrenme algoritmaları kullanarak ham **EEG (Elektroensefalografi)** sinyallerini analiz eden, görselleştiren ve tıbbi/akademik yorumlamalar sunan yenilikçi, profesyonel bir web platformudur.
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blueviolet?style=for-the-badge&logo=python&logoColor=white)]()
 [![TensorFlow](https://img.shields.io/badge/TensorFlow-2.20+-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white)]()
@@ -15,12 +15,12 @@ Asgard, derin öğrenme algoritmaları kullanarak ham **EEG (Elektroensefalograf
 <br>
 
 <p align="center">
-  <img src="https://via.placeholder.com/900x450?text=Asgard+Dashboard+ve+Analiz+Grafikleri" alt="Asgard Sistem Ekran Görüntüsü">
+  <img src="https://via.placeholder.com/900x450?text=EEG+Analiz+Dashboard+ve+Analiz+Grafikleri" alt="EEG Analiz Sistemi Ekran Görüntüsü">
 </p>
 
 ## 🚀 Proje Hakkında
 
-Asgard, nörolojik verilerin hızlı bir şekilde yorumlanmasına yardımcı olmak için tasarlanmıştır. Kullanıcıların `.txt` formatındaki zaman aralıklı EEG veri dosyalarını sisteme yüklemesine olanak tanır. Yüklenen sinyaller arka planda **ön işlemeden (Z-score normalizasyonu, hedef uzunluk kırpma/doldurma)** geçirilir ve önceden eğitilmiş bir **Keras** modeline beslenerek 5 farklı kategoriden birine sınıflandırılır:
+Bu sistem, nörolojik verilerin hızlı bir şekilde yorumlanmasına yardımcı olmak için tasarlanmıştır. Kullanıcıların `.txt` formatındaki zaman aralıklı EEG veri dosyalarını sisteme yüklemesine olanak tanır. Yüklenen sinyaller arka planda **ön işlemeden (Z-score normalizasyonu, hedef uzunluk kırpma/doldurma)** geçirilir ve önceden eğitilmiş bir **Keras** modeline beslenerek 5 farklı kategoriden birine sınıflandırılır:
 
 1. **`Z` Sınıfı:** Anormal (Gözler Kapalı)
 2. **`O` Sınıfı:** Normal (Gözler Kapalı)
@@ -60,7 +60,7 @@ Aşağıdaki adımları takip ederek projeyi kendi yerel makinenizde saniyeler i
 
 ### 1️⃣ Repoyu Klonlayın
 ```bash
-git clone https://github.com/KULLANICI_ADINIZ/proje-repo-ismi.git
+git clone https://github.com/Mers4596/EEG-Project.git
 cd proje-ana-dizini
 ```
 
@@ -93,7 +93,7 @@ Herhangi bir modül noksanlığı yoksa terminalinizde `Running on http://127.0.
 
 ## 📁 Proje Dosya Dizini Mimarisi
 ```plaintext
-📦 Asgard-EEG
+📦 EEG-Project
  ┣ 📂 models/                      # Yapay Zeka Derin Öğrenme Modelleri
  ┃ ┣ 📜 final_model.keras          # Önceden eğitilmiş ana model
  ┃ ┗ 📜 best_model.keras           # Yedek yüksek başarım modeli
@@ -116,7 +116,14 @@ Herhangi bir modül noksanlığı yoksa terminalinizde `Running on http://127.0.
 ```
 
 ## ⚠️ Uyarı ve Feragatname (Disclaimer)
-**Asgard Sinyal Analizi Sistemi** tamamen akademik araştırma, veri işleme öğrenimi ve yazılım mühendisliği vaka analizleri (*Proof of Concept*) çerçevesinde geliştirilmiştir. Sistem **hiçbir şekilde profesyonel tıbbi, diagnostik veya klinik onaylı karar mekanizması olarak kullanılamaz**. Elde edilen EEG yorumlamaları bir doktor teşhisinin yerine geçmez; kritik ve şüpheli durumlarda mutlaka bir nöroloji, psikiyatri klinik uzmanına başvurulmalıdır.
+**EEG Sinyal Analizi Sistemi** tamamen akademik araştırma, veri işleme öğrenimi ve yazılım mühendisliği vaka analizleri (*Proof of Concept*) çerçevesinde geliştirilmiştir. Sistem **hiçbir şekilde profesyonel tıbbi, diagnostik veya klinik onaylı karar mekanizması olarak kullanılamaz**. Elde edilen EEG yorumlamaları bir doktor teşhisinin yerine geçmez; kritik ve şüpheli durumlarda mutlaka bir nöroloji, psikiyatri klinik uzmanına başvurulmalıdır.
+
+## 🤝 Katkıda Bulunma, Lisans ve İletişim
+Proje, açık geliştirmeye açıktır. Repoyu 'Fork' ederek pull-request gönderebilirsiniz. 
+**Sorun Bildirimi:** Sistem içerisinde "Hata Bildirme" veya "Chatbot" üzerinden `yanlış, hata vb` keywordleri girildiğinde sistem loglarına düşürebilir, ya da Github Issues altından konu açabilirsiniz. 
+
+---
+*Developed with ❤️ by **Mehmet Ersolak***�hisinin yerine geçmez; kritik ve şüpheli durumlarda mutlaka bir nöroloji, psikiyatri klinik uzmanına başvurulmalıdır.
 
 ## 🤝 Katkıda Bulunma, Lisans ve İletişim
 Proje, açık geliştirmeye açıktır. Repoyu 'Fork' ederek pull-request gönderebilirsiniz. 
