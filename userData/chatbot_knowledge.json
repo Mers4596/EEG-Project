@@ -1,0 +1,75 @@
+[
+  {
+    "tag": "selamlama",
+    "patterns": ["merhaba", "selam", "hey", "iyi günler"],
+    "responses": ["Merhaba! Size nasıl yardımcı olabilirim?", "Selam! EEG Analiz Botu hizmetinizde."]
+  },
+  {
+    "tag": "vedalasma",
+    "patterns": ["görüşürüz", "hoşçakal", "bay bay", "kapat"],
+    "responses": ["Görüşmek üzere!", "Hoşçakalın, iyi günler dilerim."]
+  },
+  {
+    "tag": "tesekkur",
+    "patterns": ["teşekkürler", "teşekkür ederim", "sağ ol", "çok iyi"],
+    "responses": ["Rica ederim, yardımcı olabildiğime sevindim!", "Ne demek, her zaman!"]
+  },
+  {
+    "tag": "bot_kimligi",
+    "patterns": ["sen kimsin", "nesin sen", "ne işe yararsın", "ne yapabilirsin"],
+    "responses": ["Ben EEG Analiz Sistemi'nin yardımcı botuyum. Site kullanımı hakkında sorularınızı yanıtlayabilir ve size interaktif turlar sunabilirim. ('bu sayfayı anlat' demeniz yeterli)"]
+  },
+  {
+    "tag": "hal_hatir",
+    "patterns": ["nasılsın", "nasıl gidiyor"],
+    "responses": ["Tüm sistemlerim sorunsuz çalışıyor, teşekkürler! Sizin için ne yapabilirim?"]
+  },
+  {
+    "tag": "nasil_kullanilir",
+    "patterns": ["nasıl kullanılır", "nasıl çalışır", "analiz nasıl yapılır", "yardım"],
+    "responses": [ "Bu sistem, EEG verilerini analiz eder. Dilerseniz size bulunduğunuz sayfayı tanıtan bir tur başlatabilirim. ('bu sayfayı gezdir' yazmanız yeterli)" ]
+  },
+  {
+    "tag": "psd_nedir",
+    "patterns": ["psd nedir", "psd grafiği", "güç spektral yoğunluğu"],
+    "responses": [ "PSD (Güç Spektral Yoğunluğu) grafiği, EEG sinyalindeki farklı beyin dalgalarının (Alfa, Beta vb.) ne kadar güçlü olduğunu gösterir." ]
+  },
+  {
+    "tag": "sinif_anlamlari",
+    "patterns": ["o ne demek", "z sonucu", "sınıflar ne anlama geliyor", "f sınıfı", "sonuçlar ne anlama geliyor"],
+    "responses": [ "Analiz sonuçları (O, Z, N, F, S) farklı EEG aktivite türlerini sınıflandırır. Her analizin detay sayfasındaki 'Yorum ve Öneri' bölümünde, o sonuca özel detaylı açıklamayı bulabilirsiniz." ]
+  },
+  {
+    "tag": "anormal_sonuc",
+    "patterns": ["anormal sonuç aldım", "sonucum anormal çıktı"],
+    "responses": [ "Lütfen unutmayın, bu araç sadece bir ön analiz sistemidir ve tıbbi bir teşhis niteliği taşımaz. Anormal bir sonuç aldıysanız, sonuçları bir nöroloji uzmanına danışmanız en doğrusu olacaktır." ]
+  },
+  {
+    "tag": "dashboard_turu_istegi",
+    "patterns": ["paneli anlat", "paneli gezdir", "ana sayfayı anlat", "dashboard turu"],
+    "responses": ["Elbette. Ana panel turunu başlatmak için lütfen ana panelde olduğunuzdan emin olun ve bana 'bu sayfayı anlat' deyin. Eğer zaten oradaysanız, komutu verebilirsiniz."]
+  },
+  {
+    "tag": "analiz_sayfasi_turu_istegi",
+    "patterns": ["analiz sayfasını anlat", "analiz detaylarını gezdir", "grafik sayfasını anlat"],
+    "responses": ["Tabii ki. Analiz detay sayfasını gezdirmek için, lütfen önce geçmişten bir analizin 'Detaylar' linkine tıklayarak o sayfaya gidin. Sayfa açıldığında bana 'bu sayfayı gezdir' demeniz yeterli."]
+  },
+  {
+    "tag": "karsilastirma_sayfasi_turu_istegi",
+    "patterns": ["karşılaştırma sayfasını anlat", "karşılaştırmayı gezdir", "karşılaştır sayfasını anlat"],
+    "responses": ["Elbette. Karşılaştırma turunu başlatmak için, ana paneldeki 'Yeni Karşılaştırma Yap' butonuna tıklayarak o sayfaya gidin. Sayfa açıldığında 'bu sayfayı anlat' diyebilirsiniz."]
+  },
+  {
+    "tag": "mevcut_sayfa_turu",
+    "patterns": ["bu sayfayı anlat", "bu sayfayı gezdir", "burayı anlat", "tur başlat", "gezdir"],
+    "responses": ["tour:current"]
+  },
+  {
+    "tag": "anlamadim",
+    "patterns": [],
+    "responses": [
+      "Üzgünüm, bu komutu anlayamadım. 'Bu sayfayı anlat' gibi bir komutla interaktif tur başlatabilirsiniz.",
+      "Tam olarak anlayamadım. Belki de 'yardım' yazarak başlayabilirsiniz."
+    ]
+  }
+]

@@ -1,0 +1,37 @@
+# Sanal Ortam ve Cache
+venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+.pytest_cache/
+
+# Hassas Veriler ve Çevresel Değişkenler
+.env
+.env.local
+
+# IDE ve OS Dosyaları
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Kullanıcı Tarafından Yüklenen Analiz Verileri
+uploads/*
+!uploads/.gitkeep
+
+# Kullanıcı Veritabanı ve Loglar (Github'da yer almamalıdır)
+userData/history/*
+userData/users.json
+userData/reported_errors.json
+!userData/history/.gitkeep
+
+# Derin Öğrenme Modelleri 
+# Not: final_model.keras boyutu küçük olduğu için dahil ediliyor
+models/*.h5
+models/*.hdf5
+# Eğer models/ altındaki ek modelleri izlemek isterseniz başındaki # işaretini kaldırın:
+# !models/final_model.keras
+# !models/best_model.keras

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}EEG Analiz Sistemi{% endblock %}</title>
+    <!-- TailwindCSS v3 kullanımı (html2pdf/html2canvas oklch hatasını çözmek için) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.css"/>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0b0f2a; color: #e2e8f0; }
+        #chatbot-toggle { position: fixed; bottom: 2rem; right: 2rem; width: 60px; height: 60px; background-color: #7c3aed; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.3); transition: transform 0.2s ease-in-out; z-index: 1000; }
+        #chatbot-toggle:hover { transform: scale(1.1); }
+        #chatbot-toggle .robot-icon { font-size: 2rem; animation: wave-animation 2.5s infinite; transform-origin: 70% 70%; }
+        @keyframes wave-animation { 0% { transform: rotate(0.0deg) } 10% { transform: rotate(14.0deg) } 20% { transform: rotate(-8.0deg) } 30% { transform: rotate(14.0deg) } 40% { transform: rotate(-4.0deg) } 50% { transform: rotate(10.0deg) } 60% { transform: rotate(0.0deg) } 100% { transform: rotate(0.0deg) } }
+        #chat-widget { position: fixed; bottom: 7rem; right: 2rem; width: 350px; max-width: 90vw; height: 500px; background-color: #1e293b; border-radius: 1rem; box-shadow: 0 8px 24px rgba(0,0,0,0.4); display: flex; flex-direction: column; overflow: hidden; transform: scale(0.95); opacity: 0; transition: transform 0.2s ease-out, opacity 0.2s ease-out; pointer-events: none; z-index: 999; }
+        #chat-widget.open { transform: scale(1); opacity: 1; pointer-events: auto; }
+        #chat-header { background-color: #334155; padding: 1rem; color: white; font-weight: bold; }
+        #chat-messages { flex-grow: 1; padding: 1rem; overflow-y: auto; display: flex; flex-direction: column; gap: 0.75rem; }
+        .chat-message { padding: 0.75rem 1rem; border-radius: 0.75rem; max-width: 80%; line-height: 1.5; }
+        .bot-message { background-color: #475569; align-self: flex-start; color: #e2e8f0; }
+        .user-message { background-color: #7c3aed; align-self: flex-end; color: white; }
+        #chat-form { display: flex; padding: 1rem; border-top: 1px solid #334155; }
+        #chat-input { flex-grow: 1; background-color: #334155; border: 1px solid #475569; color: white; padding: 0.75rem; border-radius: 0.5rem; margin-right: 0.5rem; outline: none; }
+        #chat-input:focus { border-color: #7c3aed; }
+        #chat-submit { background-color: #7c3aed; color: white; border: none; padding: 0 1rem; border-radius: 0.5rem; cursor: pointer; transition: background-color 0.2s; }
+        #chat-submit:hover { background-color: #6d28d9; }
+        .toast-notification { position: fixed; top: 2rem; right: 2rem; padding: 1rem 1.5rem; border-radius: 0.5rem; color: white; font-weight: 500; box-shadow: 0 4px 12px rgba(0,0,0,0.3); opacity: 0; transform: translateX(100%); transition: all 0.3s ease-in-out; z-index: 2000; }
+        .toast-notification.show { opacity: 1; transform: translateX(0); }
+        .toast-notification.success { background-color: #166534; border-left: 4px solid #22c55e; }
+        .toast-notification.error { background-color: #991b1b; border-left: 4px solid #ef4444; }
+    </style>
+    {% block head_styles %}{% endblock %}
+</head>
+<body class="min-h-screen">
+    
+    {% block content %}{% endblock %}
+
+    <div id="toast-container"></div>
+    <div id="chatbot-toggle"><span class="robot-icon">👋</span></div>
+    <div id="chat-widget">
+        <div id="chat-header">EEG Yardımcı Bot</div>
+        <div id="chat-messages">
+            <div class="chat-message bot-message">
+                Merhaba! Ben EEG Analiz Sistemi yardımcınızım. Size nasıl yardımcı olabilirim?
+            </div>
+        </div>
+        <form id="chat-form">
+            <input type="text" id="chat-input" placeholder="Mesajınızı yazın..." autocomplete="off">
+            <button type="submit" id="chat-submit">Gönder</button>
+        </form>
+    </div>
+
+    {% block scripts %}{% endblock %}
+
+    <script src="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.js.iife.js"></script>
+    <script>
+        // GLOBAL SCRIPTS
+        function showToast(message, type = 'success', duration = 4000) { const container = document.getElementById('toast-container'); if (!container) return; const toast = document.createElement('div'); toast.className = `toast-notification ${type}`; toast.textContent = message; container.appendChild(toast); setTimeout(() => { toast.classList.add('show'); }, 100); setTimeout(() => { toast.classList.remove('show'); toast.addEventListener('transitionend', () => toast.remove()); }, duration); }
+        window.onerror = function(message, source, lineno, colno, error) { console.error("Global bir hata yakalandı:", message, source, lineno, error); showToast("Beklenmedik bir hata oluştu. Sorun bildiriminiz alındı.", "error"); fetch('/report_js_error', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message: message, source: source, lineno: lineno, colno: colno, error: error ? error.stack : 'N/A', url: window.location.href }) }).catch(err => console.error("Hata raporu gönderilemedi:", err)); return true; };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- İNTERAKTİF TUR MANTIĞI ---
+            const driver = window.driver.driver;
+            const driverConfig = { showProgress: true, nextBtnText: 'İleri', prevBtnText: 'Geri', doneBtnText: 'Anladım' };
+            function startTour(steps) {
+                if (steps && steps.length > 0 && document.querySelector(steps[0].element)) {
+                    driver({ ...driverConfig, steps: steps }).drive();
+                } else {
+                    showToast("Bu sayfa için bir tur bulunmuyor veya tur başlatılamıyor.", "error");
+                }
+            }
+            const dashboardTourSteps = [ { element: '#upload-card', popover: { title: 'Analiz Başlatma', description: 'Tüm analiz işlemleri bu karttan başlar.' } }, { element: '#file-input', popover: { title: '1. Dosya Seçimi', description: '.txt formatındaki EEG veri dosyanızı buradan seçin.' } }, { element: '#analysis-label', popover: { title: '2. Etiketleme', description: 'Analizinizi daha sonra kolayca tanımak için buraya bir isim veya not girebilirsiniz.' } }, { element: '#analyze-button', popover: { title: '3. Analiz Et', description: 'Bu butona basarak analizi başlatın.' } }, { element: '#history-card', popover: { title: 'Analiz Geçmişi', description: 'Daha önce yaptığınız tüm analizler burada listelenir.' } }, { element: '#compare-button', popover: { title: 'Yeni Karşılaştırma', description: 'Geçmişteki herhangi iki analizi karşılaştırmak için bu butonu kullanın.', side: 'left' } } ];
+            const analizTourSteps = [ { element: '#timeDomainChart', popover: { title: 'Zaman Domeni Grafiği', description: 'Bu grafik, EEG sinyalinin zamana bağlı genlik değişimini gösterir.' } }, { element: '#psdChart', popover: { title: 'PSD Grafiği', description: 'Bu grafik, sinyaldeki beyin dalgalarının frekans ve güç dağılımını gösterir.' } }, { element: '#interpretation-card', popover: { title: 'Yorum ve Öneri', description: 'Modelin yaptığı sınıflandırmaya göre, sonucun ne anlama geldiği burada açıklanır.', side: 'top' } }, { element: '#compare-this-button', popover: { title: 'Bunu Karşılaştır', description: 'Mevcut analizi geçmişteki başka bir analizle karşılaştırmak için bu butonu kullanabilirsiniz.', side: 'bottom' } } ];
+            const karsilastirmaTourSteps = [ { element: '#file1-select', popover: { title: '1. Analiz', description: 'Karşılaştırmanın temelini oluşturacak ilk analizi buradan seçin.' } }, { element: '#file2-select', popover: { title: '2. Analiz', description: 'İlk analizle karşılaştırılacak ikinci analizi buradan seçin.' } }, { element: '#compare-form-button', popover: { title: 'Karşılaştır', description: 'İki analizi seçtikten sonra bu butona basarak sonuçları oluşturun.' } }, { element: '#comparison-results-card', popover: { title: 'Sonuçlar', description: 'Karşılaştırma sonuçları, grafikleri ve sayısal yorum bu bölümde gösterilir.', side: 'top' } } ];
+
+            const tourButton = document.getElementById('start-tour-button');
+            if (tourButton) {
+                tourButton.addEventListener('click', () => {
+                    const pageBody = document.querySelector('body[data-page-name]');
+                    const currentPage = pageBody ? pageBody.dataset.pageName : null;
+
+                    if (currentPage === 'dashboard') startTour(dashboardTourSteps);
+                    else if (currentPage === 'analiz_detay') startTour(analizTourSteps);
+                    else if (currentPage === 'karsilastirma') startTour(karsilastirmaTourSteps);
+                    else showToast('Bu sayfa için bir tur bulunmuyor.', 'error');
+                });
+            }
+
+            // --- CHATBOT MANTIĞI ---
+            const chatbotToggle = document.getElementById('chatbot-toggle');
+            const chatWidget = document.getElementById('chat-widget');
+            const chatMessages = document.getElementById('chat-messages');
+            const chatForm = document.getElementById('chat-form');
+            const chatInput = document.getElementById('chat-input');
+            if (!chatbotToggle) return;
+            chatbotToggle.addEventListener('click', () => { chatWidget.classList.toggle('open'); });
+            chatForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const userMessage = chatInput.value.trim();
+                if (!userMessage) return;
+                addMessage(userMessage, 'user');
+                chatInput.value = '';
+                chatInput.disabled = true;
+                try {
+                    const response = await fetch('/chatbot', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message: userMessage }) });
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    const data = await response.json();
+                    addMessage(data.reply, 'bot');
+                } catch (error) {
+                    console.error('Chatbot fetch error:', error);
+                    addMessage('Üzgünüm, bir sorunla karşılaştım.', 'bot');
+                } finally {
+                    chatInput.disabled = false;
+                    chatInput.focus();
+                }
+            });
+            function addMessage(text, sender) {
+                const messageElement = document.createElement('div');
+                messageElement.classList.add('chat-message', `${sender}-message`);
+                messageElement.textContent = text;
+                chatMessages.appendChild(messageElement);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        });
+    </script>
+</body>
+</html>
