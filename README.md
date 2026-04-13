@@ -54,7 +54,7 @@ Bu sistem, nörolojik verilerin hızlı bir şekilde yorumlanmasına yardımcı 
 
 ---
 
-## ⚙️ Kurulum ve Çalıştırma
+## 🏗️ Kurulum ve Çalıştırma
 
 Aşağıdaki adımları takip ederek projeyi kendi yerel makinenizde saniyeler içinde ayağa kaldırabilirsiniz. (Python **3.10+** yüklü olmalıdır. TensorFlow son sürümü için önerilen Python sürümü 3.12 veya 3.13)
 
@@ -91,39 +91,32 @@ Herhangi bir modül noksanlığı yoksa terminalinizde `Running on http://127.0.
 
 ---
 
-## 📁 Proje Dosya Dizini Mimarisi
+## 📂 Proje Dosya Dizini Mimarisi
 ```plaintext
-📦 EEG-Project
- ┣ 📂 models/                      # Yapay Zeka Derin Öğrenme Modelleri
- ┃ ┣ 📜 final_model.keras          # Önceden eğitilmiş ana model
- ┃ ┗ 📜 best_model.keras           # Yedek yüksek başarım modeli
- ┣ 📂 templates/                   # Frontend Görünümleri (HTML)
- ┃ ┣ 📜 layout.html                # Ana omurga, Tailwind yükleyici, Chatbot
- ┃ ┣ 📜 index.html                 # Dashboard, yükleme ve geçmiş
- ┃ ┣ 📜 analiz.html                # Grafikli Detay Görüntüleme sayfası
- ┃ ┣ 📜 karsilastirma.html         # İstatistiksel kıyaslama alanı
- ┃ ┗ ...                           # Diğer sayfalar (Login/Register)
- ┣ 📂 uploads/                     # Geçici işleme dosyaları 
- ┃ ┗ 📜 (gitignore)
- ┣ 📂 userData/                    # Yerel veritabanı JSON dosyaları
- ┃ ┣ 📂 history/                   # Kullanıcı ID bazlı geçmiş veriler
- ┃ ┣ 📜 users.json                 # İdentity yönetimi (Şifrelenmiş)
- ┃ ┗ 📜 chatbot_knowledge.json     # NLP Kuralları ve cevaplar
- ┣ 📜 app.py                       # Ana sunucu mimarisi, controller fonksiyonları
- ┣ 📜 requirements.txt             # Proje Python Bağımlılıkları (Paket listesi)
- ┣ 📜 .gitignore                   # Hassas veri gizleme konfigürasyonu
- ┗ 📜 README.md                    # Proje dökümü
+📁 EEG-Project
+ ├── 🧠 models/                      # Yapay Zeka Derin Öğrenme Modelleri
+ │   ├── 📉 final_model.keras          # Önceden eğitilmiş ana model
+ │   └── 📑 best_model.keras           # Yedek yüksek başarım modeli
+ ├── 🎨 templates/                   # Frontend Görünümleri (HTML)
+ │   ├── 📋 layout.html                # Ana omurga, Tailwind yükleyici, Chatbot
+ │   ├── 🏠 index.html                 # Dashboard, yükleme ve geçmiş
+ │   ├── 📊 analiz.html                # Grafikli Detay Görüntüleme sayfası
+ │   ├── ⚖️ karsilastirma.html         # İstatistiksel kıyaslama alanı
+ │   └── ...                           # Diğer sayfalar (Login/Register)
+ ├── ⬆️ uploads/                     # Geçici işleme dosyaları 
+ │   └── (gitignore)
+ ├── 💾 userData/                    # Yerel veritabanı JSON dosyaları
+ │   ├── 🕒 history/                   # Kullanıcı ID bazlı geçmiş veriler
+ │   ├── 👤 users.json                 # Identity yönetimi (Şifrelenmiş)
+ │   └── 🤖 chatbot_knowledge.json     # NLP Kuralları ve cevaplar
+ ├── ⚙️ app.py                       # Ana sunucu mimarisi, controller fonksiyonları
+ ├── 📦 requirements.txt             # Proje Python Bağımlılıkları (Paket listesi)
+ ├── 🛡️ .gitignore                   # Hassas veri gizleme konfigürasyonu
+ └── 📖 README.md                    # Proje dökümü
 ```
 
 ## ⚠️ Uyarı ve Feragatname (Disclaimer)
-**EEG Sinyal Analizi Sistemi** tamamen akademik araştırma, veri işleme öğrenimi ve yazılım mühendisliği vaka analizleri (*Proof of Concept*) çerçevesinde geliştirilmiştir. Sistem **hiçbir şekilde profesyonel tıbbi, diagnostik veya klinik onaylı karar mekanizması olarak kullanılamaz**. Elde edilen EEG yorumlamaları bir doktor teşhisinin yerine geçmez; kritik ve şüpheli durumlarda mutlaka bir nöroloji, psikiyatri klinik uzmanına başvurulmalıdır.
-
-## 🤝 Katkıda Bulunma, Lisans ve İletişim
-Proje, açık geliştirmeye açıktır. Repoyu 'Fork' ederek pull-request gönderebilirsiniz. 
-**Sorun Bildirimi:** Sistem içerisinde "Hata Bildirme" veya "Chatbot" üzerinden `yanlış, hata vb` keywordleri girildiğinde sistem loglarına düşürebilir, ya da Github Issues altından konu açabilirsiniz. 
-
----
-*Developed with ❤️ by **Mehmet Ersolak***�hisinin yerine geçmez; kritik ve şüpheli durumlarda mutlaka bir nöroloji, psikiyatri klinik uzmanına başvurulmalıdır.
+**EEG Sinyal Analizi Sistemi** tamamen akademik araştırma, veri işleme öğrenimi ve yazılım mühendisliği vaka analizleri (*Proof of Concept*) çerçevesinde geliştirilmiştir. Sistem **hiçbir şekilde profesyonel tıbbi, diagnostik veya klinik onaylı karar mekanizması olarak kullanılamaz**. Elde edilen EEG yorumlamaları bir doktor teşhisinin yerine geçmez; kritik ve şüpheli durumlarda mutlaka bir nöroloji, psikiyatriyatrik klinik uzmanına başvurulmalıdır.
 
 ## 🤝 Katkıda Bulunma, Lisans ve İletişim
 Proje, açık geliştirmeye açıktır. Repoyu 'Fork' ederek pull-request gönderebilirsiniz. 
