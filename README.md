@@ -94,6 +94,12 @@ Herhangi bir modül noksanlığı yoksa terminalinizde `Running on http://127.0.
 ## 📂 Proje Dosya Dizini Mimarisi
 ```plaintext
 📁 EEG-Project
+ ├── 📊 data/                        # EEG Veri Seti (Örnek Kayıtlar)
+ │   ├── 📁 F/                        # Anormal (Fokal Odaklı) Sinyaller
+ │   ├── 📁 N/                        # Anormal (Gözler Açık) Sinyaller
+ │   ├── 📁 O/                        # Normal (Gözler Kapalı) Sinyaller
+ │   ├── 📁 S/                        # Anormal (Nöbet Anı) Sinyaller
+ │   └── 📁 Z/                        # Anormal (Gözler Kapalı) Sinyaller
  ├── 🧠 models/                      # Yapay Zeka Derin Öğrenme Modelleri
  │   ├── 📉 final_model.keras          # Önceden eğitilmiş ana model
  │   └── 📑 best_model.keras           # Yedek yüksek başarım modeli
